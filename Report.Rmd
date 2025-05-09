@@ -1,5 +1,5 @@
 ---
-title: "Report"
+title: "Are Company Stock Prices Influenced by Tweets?"
 author: "Brent Alonzo"
 date: "05/08/2025"
 output: 
