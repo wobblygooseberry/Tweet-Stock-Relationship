@@ -31,8 +31,6 @@ This dataset was then split into three sentiment categories: positive, negative,
 
 Positive sentiment data was combined with historical stock prices of Apple and Amazon to create visualizations using ggplot2. Daily tweet counts and corresponding stock closing prices were plotted. A scatterplot of tweet volume versus stock price was generated with a linear regression line to examine potential relationships. Each data point was labeled with the corresponding date, though not in chronological order.
 
-Positive, neutral, and negative sentiment data will be used to predict future Apple and Amazon stock prices using Machine Learning models.
-
 ## Visualization
 
 ```{r aapl-tweet-plot, echo=FALSE, warning=FALSE}
