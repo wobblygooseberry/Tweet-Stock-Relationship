@@ -1,0 +1,84 @@
+---
+title: "Report"
+author: "Brent Alonzo"
+date: "05/08/2025"
+output: 
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("plottingdata.R")
+```
+
+## Purpose
+
+The purpose of this project is to determine whether the volume of positive sentiment expressed in tweets referencing major companies (Apple (AAPL) and Amazon (AMZN) specifically) has any measurable relationship with the companies’ stock prices. The project applies sentiment analysis to a large dataset of tweets to classify them as positive, negative, or neutral.
+
+After filtering and categorizing the tweets by company, the results are analyzed alongside historical stock price data. The goal is to determine whether increased positive sentiment corresponds with changes in stock price. Visualizations were created to show sentiment trends over time, stock price trends, and scatter plots comparing tweet volume to stock price. Also, statistical analysis was performed to check the significance of any observed correlations.
+
+
+## Data
+
+The data for this analysis comes from StephanAkkerman/stock-market-tweets-data dataset. It consists of over 900,000 tweets mentioning a variety of companies' ticker symbols. The original dataset was divided into three columns: id, created_at, and text. We decided that a new dataset will be created that will only consider the companies Apple and Amazon with three columns: ticker_symbol, text, and created_at. The date of these tweets range from April 9th, 2020 to July 16th, 2020. Another source of data used was from Yahoo Finance historical data for the stock prices of Apple and Amazon from the same time period.
+
+## Techniques
+
+After filtering for Apple and Amazon, the dataset contained over 190,000 tweets. VADER was then applied to this subset and combined the sentiment scores with the original data, resulting in a final dataset with the columns: ticker_symbol, text, created_at, and compound.
+
+This dataset was then split into three sentiment categories: positive, negative, and neutral. Tweets with a VADER score above 0.05 were labeled positive, below -0.05 as negative, and between -0.05 and 0.05 as neutral. The threshold of 0.05/-0.05 was chosen for simplicity.
+
+Positive sentiment data was combined with historical stock prices of Apple and Amazon to create visualizations using ggplot2. Daily tweet counts and corresponding stock closing prices were plotted. A scatterplot of tweet volume versus stock price was generated with a linear regression line to examine potential relationships. Each data point was labeled with the corresponding date, though not in chronological order.
+
+Positive, neutral, and negative sentiment data will be used to predict future Apple and Amazon stock prices using Machine Learning models.
+
+## Visualization
+
+```{r aapl-tweet-plot, echo=FALSE, warning=FALSE}
+aapl_tweets
+```
+
+```{r aapl-stock-plot, echo=FALSE, warning=FALSE}
+aapl_stock_plot
+```
+
+```{r amzn-tweet-plot, echo=FALSE, warning=FALSE}
+amzn_tweets
+```
+
+```{r amzn-stock-plot, echo=FALSE, warning=FALSE}
+amzn_stock_plot
+```
+
+```{r aapl-stock/tweet-plot, echo=FALSE, warning=FALSE}
+aapl_c_plot
+```
+
+```{r amzn-stock/tweet-plot, echo=FALSE, warning=FALSE}
+amzn_c_plot
+```
+
+## Analysis
+
+To perform descriptive statistical analysis on our data, we'll use the summary function for the Apple and Amazon scatterplots.
+
+```{r summary-aapl, echo=FALSE}
+summary(aapl_lm)
+cor(aapl_combined$price, aapl_combined$tweet_count)
+```
+
+The linear regression analysis gave an R-squared value of 0.47, meaning that about 47% of the variation in Apple’s stock price can be explained by the number of positive tweets. The p-value for the tweet count coefficient was 1.48e-08, which is well below the typical significance level of 0.05. This shows that the relationship between tweet count and stock price is statistically significant. Additionally, the correlation between the two was 0.686, suggesting a moderately strong positive linear relationship.
+
+
+```{r summary-amzn, echo=FALSE}
+summary(amzn_lm)
+cor(amzn_combined$price, amzn_combined$tweet_count)
+```
+
+The linear regression analysis gave an R-squared value of 0.08, meaning that about 8% of the variation in Amazon’s stock price can be explained by the number of positive tweets. The p-value for the tweet count coefficient was 0.0401, which is just below the typical 0.05 threshold. This means the relationship is statistically significant, but the effect is relatively weak. The correlation between tweet count and stock price was 0.283, suggesting a low positive linear relationship.
+
+
+## Conclusion
+
+In conclusion, the impact of positive tweet volume on stock price seems to depend on the company. For Apple (AAPL), the low p-value and relatively high R-squared value of 0.47 suggest a statistically significant and moderately strong relationship. On the other hand, Amazon (AMZN) had a much lower R-squared value of 0.08 and a p-value just below 0.05, pointing to a weaker, but still statistically significant, connection. Overall, the results suggest that tweet volume might affect the stock price for some companies and that it's not consistent across different companies.
