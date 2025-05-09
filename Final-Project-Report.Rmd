@@ -21,7 +21,7 @@ After filtering and categorizing the tweets by company, the results are analyzed
 
 ## Data
 
-The data for this analysis comes from StephanAkkerman/stock-market-tweets-data dataset (<https://huggingface.co/datasets/StephanAkkerman/stock-market-tweets-data/viewer/default/train?p=9236&views%5B%5D=train>). It consists of over 900,000 tweets mentioning a variety of companies' ticker symbols. The original dataset was divided into three columns: id, created_at, and text. We decided that a new dataset will be created that will only consider the companies Apple and Amazon with three columns: ticker_symbol, text, and created_at. The date of these tweets range from April 9th, 2020 to July 16th, 2020. Another source of data used was from Yahoo Finance historical data for the stock prices of Apple and Amazon from the same time period.
+The data for this analysis comes from StephanAkkerman/stock-market-tweets-data dataset. It consists of over 900,000 tweets mentioning a variety of companies' ticker symbols. The original dataset was divided into three columns: id, created_at, and text. We decided that a new dataset will be created that will only consider the companies Apple and Amazon with three columns: ticker_symbol, text, and created_at. The date of these tweets range from April 9th, 2020 to July 16th, 2020. Another source of data used was from Yahoo Finance historical data for the stock prices of Apple and Amazon from the same time period.
 
 ## Techniques
 
